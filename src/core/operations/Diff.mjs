@@ -119,9 +119,9 @@ class Diff extends Operation {
 
         for (let i = 0; i < diff.length; i++) {
             if (diff[i].added) {
-                if (showAdded) output += "<ins>" + Utils.escapeHtml(diff[i].value) + "</ins>";
+                if (showAdded) output += "<span class='hl5'>" + Utils.escapeHtml(diff[i].value) + "</span>";
             } else if (diff[i].removed) {
-                if (showRemoved) output += "<del>" + Utils.escapeHtml(diff[i].value) + "</del>";
+                if (showRemoved) output += "<span class='hl3'>" + Utils.escapeHtml(diff[i].value) + "</span>";
             } else if (!showSubtraction) {
                 output += Utils.escapeHtml(diff[i].value);
             }

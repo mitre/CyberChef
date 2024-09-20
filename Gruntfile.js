@@ -86,12 +86,10 @@ module.exports = function (grunt) {
 
 
     // Project configuration
-    const compileYear = grunt.template.today("UTC:yyyy"),
-        compileTime = grunt.template.today("UTC:dd/mm/yyyy HH:MM:ss") + " UTC",
+    const compileTime = grunt.template.today("UTC:dd/mm/yyyy HH:MM:ss") + " UTC",
         pkg = grunt.file.readJSON("package.json"),
         webpackConfig = require("./webpack.config.js"),
         BUILD_CONSTANTS = {
-            COMPILE_YEAR: JSON.stringify(compileYear),
             COMPILE_TIME: JSON.stringify(compileTime),
             COMPILE_MSG: JSON.stringify(grunt.option("compile-msg") || grunt.option("msg") || ""),
             PKG_VERSION: JSON.stringify(pkg.version),
@@ -127,7 +125,6 @@ module.exports = function (grunt) {
                         filename: "index.html",
                         template: "./src/web/html/index.html",
                         chunks: ["main"],
-                        compileYear: compileYear,
                         compileTime: compileTime,
                         version: pkg.version,
                         minify: {
@@ -200,7 +197,6 @@ module.exports = function (grunt) {
         },
         webpack: {
             options: webpackConfig,
-            myConfig: webpackConfig,
             web: webpackProdConf(),
         },
         "webpack-dev-server": {
@@ -230,7 +226,6 @@ module.exports = function (grunt) {
                         filename: "index.html",
                         template: "./src/web/html/index.html",
                         chunks: ["main"],
-                        compileYear: compileYear,
                         compileTime: compileTime,
                         version: pkg.version,
                     })
@@ -428,18 +423,6 @@ module.exports = function (grunt) {
                             return `sed -i '' 's/<div id=snackbar-container\\/>/<div id=snackbar-container>/g' ./node_modules/snackbarjs/src/snackbar.js`;
                         default:
                             return `sed -i 's/<div id=snackbar-container\\/>/<div id=snackbar-container>/g' ./node_modules/snackbarjs/src/snackbar.js`;
-                    }
-                },
-                stdout: false
-            },
-            fixJimpModule: {
-                command: function () {
-                    switch (process.platform) {
-                        case "darwin":
-                            // Space added before comma to prevent multiple modifications
-                            return `sed -i '' 's/"es\\/index.js",/"es\\/index.js" ,\\n  "type": "module",/' ./node_modules/jimp/package.json`;
-                        default:
-                            return `sed -i 's/"es\\/index.js",/"es\\/index.js" ,\\n  "type": "module",/' ./node_modules/jimp/package.json`;
                     }
                 },
                 stdout: false

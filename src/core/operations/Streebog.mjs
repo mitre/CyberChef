@@ -28,7 +28,7 @@ class Streebog extends Operation {
         this.outputType = "string";
         this.args = [
             {
-                "name": "Digest length",
+                "name": "Size",
                 "type": "option",
                 "value": ["256", "512"]
             }
@@ -41,16 +41,13 @@ class Streebog extends Operation {
      * @returns {string}
      */
     run(input, args) {
-        const [length] = args;
-
-        const algorithm = {
-            version: 2012,
-            mode: "HASH",
-            length: parseInt(length, 10)
-        };
-
         try {
-            const gostDigest = new GostDigest(algorithm);
+            const length = parseInt(args[0], 10);
+            const gostDigest = new GostDigest({
+                name: "GOST R 34.11",
+                version: 2012,
+                length: length
+            });
 
             return toHexFast(gostDigest.digest(input));
         } catch (err) {

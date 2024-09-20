@@ -11,7 +11,7 @@ TestRegister.addTests([
     {
         name: "Diff, basic usage",
         input: "testing23\n\ntesting123",
-        expectedOutput: "testing<ins>1</ins>23",
+        expectedOutput: "testing<span class='hl5'>1</span>23",
         recipeConfig: [
             {
                 "op": "Diff",
@@ -22,7 +22,7 @@ TestRegister.addTests([
     {
         name: "Diff added with subtraction, basic usage",
         input: "testing23\n\ntesting123",
-        expectedOutput: "<ins>1</ins>",
+        expectedOutput: "<span class='hl5'>1</span>",
         recipeConfig: [
             {
                 "op": "Diff",
@@ -33,7 +33,7 @@ TestRegister.addTests([
     {
         name: "Diff removed with subtraction, basic usage",
         input: "testing123\n\ntesting3",
-        expectedOutput: "<del>12</del>",
+        expectedOutput: "<span class='hl3'>12</span>",
         recipeConfig: [
             {
                 "op": "Diff",

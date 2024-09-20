@@ -10,7 +10,7 @@ import { isImage } from "../lib/FileType.mjs";
 import { toBase64 } from "../lib/Base64.mjs";
 import { gaussianBlur } from "../lib/ImageManipulation.mjs";
 import { isWorkerEnvironment } from "../Utils.mjs";
-import Jimp from "jimp/es/index.js";
+import jimp from "jimp";
 
 /**
  * Sharpen Image operation
@@ -68,7 +68,7 @@ class SharpenImage extends Operation {
 
         let image;
         try {
-            image = await Jimp.read(input);
+            image = await jimp.read(input);
         } catch (err) {
             throw new OperationError(`Error loading image. (${err})`);
         }
@@ -137,9 +137,9 @@ class SharpenImage extends Operation {
 
             let imageBuffer;
             if (image.getMIME() === "image/gif") {
-                imageBuffer = await image.getBufferAsync(Jimp.MIME_PNG);
+                imageBuffer = await image.getBufferAsync(jimp.MIME_PNG);
             } else {
-                imageBuffer = await image.getBufferAsync(Jimp.AUTO);
+                imageBuffer = await image.getBufferAsync(jimp.AUTO);
             }
             return imageBuffer.buffer;
         } catch (err) {

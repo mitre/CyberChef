@@ -6,7 +6,7 @@
 
 import Operation from "../Operation.mjs";
 import OperationError from "../errors/OperationError.mjs";
-import xmldom from "@xmldom/xmldom";
+import xmldom from "xmldom";
 import xpath from "xpath";
 
 /**
@@ -52,6 +52,12 @@ class XPathExpression extends Operation {
         try {
             doc = new xmldom.DOMParser({
                 errorHandler: {
+                    warning(w) {
+                        throw w;
+                    },
+                    error(e) {
+                        throw e;
+                    },
                     fatalError(e) {
                         throw e;
                     }

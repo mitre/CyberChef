@@ -3,7 +3,6 @@ npm-debug.log
 travis.log
 build
 .vscode
-.idea
 .*.swp
 src/core/config/modules/*
 src/core/config/OperationConfig.json
